@@ -36,7 +36,7 @@ And lastly sliding window approad for least diff of give window size location av
 
 live link: https://unstop-frontend.vercel.app/
 
-backend link: https://ticketapp-psp3.onrender.com/
+
 
 ## Built With
 
