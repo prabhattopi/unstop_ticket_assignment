@@ -11,12 +11,14 @@ export const TicketContextProvider=({children})=>{
   const [reset,setReset]=useState(false)
   const [update,setUpdate]=useState(0)
   const [loading,setLoading]=useState(false)
+  const [remaining,setRemaining]=useState([])
 
   const getData=async()=>{
      if(tickets.length==0){
          setLoading(true)
      }
       let res=await api.get("/ticket")
+      setRemaining(res.data.filter(e=>e.status==false))
       let map=new Map()
       for(let key of res.data){
           if(!map.has(key.row)){
@@ -34,6 +36,7 @@ export const TicketContextProvider=({children})=>{
       }
    
     setTickets(arr)
+  
     setLoading(false)
   
 
@@ -85,6 +88,7 @@ export const TicketContextProvider=({children})=>{
             hideProgressBar:false, // Hide the progress bar
           });
           setReset(!reset)
+          setCurrentData([])
 
       }
       catch(err){
@@ -115,7 +119,8 @@ export const TicketContextProvider=({children})=>{
         setToastMessage,
         handleFunction,
         handleReset,
-        loading
+        loading,
+        remaining
     }
 
     return (

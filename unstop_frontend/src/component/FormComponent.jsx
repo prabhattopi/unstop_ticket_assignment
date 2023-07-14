@@ -6,7 +6,8 @@ import useTicket from '../hooks/useTicket'
 const FormComponent=()=>{
     const [inputValue, setInputValue] = useState('');
     const {currentData,setCurrentData,}=useTicket()
-   const {  handleReset}=useTicket()
+   const {handleReset,remaining}=useTicket()
+   console.log(remaining)
     const handleSubmit = async(e) => {
       e.preventDefault();
 
@@ -51,7 +52,8 @@ const FormComponent=()=>{
     };
   
     return (
-      <div className="w-full bg-white rounded shadow-md p-6" style={{height:"500px"}}>
+      <div className="w-full bg-white rounded shadow-md p-6 h-auto">
+          <div className="flex  flex-wrap justify-between justify-center">
         <div className="flex flex-col justify-between mb-4 gap-8">
             <div className="flex gap-4 items-center">
             <div className="bg-green-500 w-8 h-8 rounded-full"></div>
@@ -64,8 +66,13 @@ const FormComponent=()=>{
        
       
         </div>
-        <p className="font-bold pb-2">Current Booked Seats</p>
-        <div className="flex gap-8 pb-4 text-white">
+        <div className="font-bold mr-8 text-lg flex flex-col justify-center items-center gap-2">
+            <p>Total Remaining Seats</p>
+            <p className="text-2xl">{remaining.length}</p>
+        </div>
+        </div>
+        <p className="font-bold pb-2 pt-8">Current Booked Seats</p>
+        <div className="flex gap-8 pb-4 text-white h-5">
             {
                 currentData?.map(e=>(
                     <span key={e} className="flex justify-center items-center bg-red-500 rounded-full w-8 h-8">{e}</span>
@@ -74,7 +81,7 @@ const FormComponent=()=>{
          
       
         </div>
-        <p className="font-bold pb-4">Type No of Seats</p>
+        <p className="font-bold pb-4 pt-4">Type No of Seats</p>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
