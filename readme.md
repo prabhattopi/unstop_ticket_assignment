@@ -9,6 +9,14 @@ clone the project
 start the frontend (npm run dev)
 start the backend  (npm run start)
 ```
+## Logics
+
+```
+[DSA Logic](https://docs.google.com/document/d/1LqAXzsn-GeeQFJ3D4KasSKQyUWj0asJiJW5BxhQQ4sU/edit?usp=sharing)
+
+[Mongo Aggregation](https://docs.google.com/document/d/1xKRRt3FSmRDDBpM_dG46wBhD47BOvcxxAt_ZxhzJmeU/edit?usp=sharing)
+ 
+```
 
 ### Prerequisites
 
