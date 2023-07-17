@@ -1,6 +1,12 @@
 // Find status false
 const statusAggregation = [
     {
+        $sort: {
+            row: 1,
+            seat_no: 1
+        }
+    },
+    {
         $match: {
             status: false
 
@@ -8,11 +14,17 @@ const statusAggregation = [
 
 
     }
-    
+
 
 ]
 
 const statusAggregationtrue = [
+    {
+        $sort: {
+            row: 1,
+            seat_no: 1
+        }
+    },
     {
         $match: {
             status: true
@@ -21,7 +33,7 @@ const statusAggregationtrue = [
 
 
     }
-    
+
 
 ]
 
@@ -29,7 +41,12 @@ const statusAggregationtrue = [
 function rowAggregation(row) {
     const rowAggregation = [
         {
-           $match: {
+            $sort: {
+                seat_no: 1
+            }
+        },
+        {
+            $match: {
                 row: row,
                 status: false
             }
@@ -38,10 +55,16 @@ function rowAggregation(row) {
 
     return rowAggregation;
 
-} 
+}
 
 function windowOfSeatsandUpdate(array) {
     const updatedWindow = [
+        {
+            $sort: {
+                row: 1,
+                seat_no: 1
+            }
+        },
         {
             $match: {
                 seat_no: { $in: array }

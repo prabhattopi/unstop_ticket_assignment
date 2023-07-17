@@ -37,7 +37,8 @@ exports.createTicket = async (req, res) => {
                     const modified = await Ticket.updateMany(
                         { seat_no: { $in: seatsNumber } },
                         { $set: { status: true } },
-                        { new: true }
+                        { sort: { row: 1, seat_no: 1 } }
+                     
                     );
                     // console.log(modified)
                     return res.status(200).json({ message: "successfully booked ticket", data: seatsNumber })
@@ -55,7 +56,8 @@ exports.createTicket = async (req, res) => {
             await Ticket.updateMany(
                 { seat_no: { $in: slidingWindow } },
                 { $set: { status: true } },
-                { new: true }
+                { sort: { row: 1, seat_no: 1 } }
+   
             );
             return res.status(200).json({ message: "successfully booked ticket", data: slidingWindow })
 
@@ -74,8 +76,9 @@ exports.createTicket = async (req, res) => {
 };
 
 exports.getAllTickets = (req, res) => {
-    Ticket.find()
+    Ticket.find().sort({row:1,seat_no:1})
         .then((Tickets) => {
+
             res.send(Tickets);
         })
         .catch((error) => {
@@ -107,7 +110,7 @@ exports.updateTicket = async (req, res) => {
     const ticket = await Ticket.findOne({ _id: itemId })
 
     if (ticket.status == true) {
-        Ticket.findByIdAndUpdate(itemId, updatedItem)
+        Ticket.findByIdAndUpdate(itemId, updatedItem, { sort: { row: 1, seat_no: 1 } })
             .then(() => {
 
                 return res.status(200).json({ message: 'Ticket updated successfully' });
@@ -130,7 +133,7 @@ exports.deleteTicket = async (req, res) => {
         let newTicket = await Ticket.aggregate(mongoQuery.statusAggregationtrue)
 
         if (newTicket.length > 0) {
-            await Ticket.updateMany({}, { $set: { status: false }, }, { new: true });
+            await Ticket.updateMany({}, { $set: { status: false }, }).sort({row:1,seat_no:1});
             res.status(200).json({ message: "All tickets updated successfully" });
         }
         else {
